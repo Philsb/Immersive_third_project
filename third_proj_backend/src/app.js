@@ -1,5 +1,8 @@
 const express = require("express");
-const userRoute = require ("./routes/users.route");
+const userRoute = require ("./routes/user.route");
+const signupRoute = require ("./routes/signup.route");
+const loginRoute = require ("./routes/login.route");
+const transactionRoute = require ("./routes/transaction.route");
 const cors = require('cors');
 const error = require("./middleware/error.middleware");
 
@@ -20,7 +23,9 @@ app.get("/", (req,res)=>{
 
 //-----------------------------------------------
 app.use("/", userRoute);
-
+app.use("/", signupRoute);
+app.use("/", loginRoute);
+app.use("/", transactionRoute)
 app.use(error);
 
 app.listen(3000, ()=>{

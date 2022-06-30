@@ -1,0 +1,22 @@
+CREATE FUNCTION add_regular_user (
+    password_p VARCHAR (50),
+	fullname_p VARCHAR (50),
+    email_p VARCHAR(50),
+    photo_path_p varchar,
+    source_income_p income) 
+RETURNS int 
+LANGUAGE plpgsql  
+AS  $$  
+DECLARE lastid int;
+BEGIN  
+    INSERT INTO Users(user_type) VALUES ('R') RETURNING user_id INTO lastid;
+    INSERT INTO Users_regular(user_id,password, fullname, email, photo_path, source_income) VALUES (lastid,password_p, fullname_p, email_p, photo_path_p, source_income_p);
+    RETURN lastid;
+    
+    --- SQL statements / logic /condition.   
+END  $$
+
+
+
+
+

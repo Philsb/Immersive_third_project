@@ -1,0 +1,2 @@
+INSERT INTO Account_type (type_name, type_description) VALUES ('dollars', 'US Currency');
+INSERT INTO Account_type (type_name, type_description) VALUES ('colones', 'US Currency');

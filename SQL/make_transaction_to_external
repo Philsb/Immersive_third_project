@@ -1,0 +1,17 @@
+CREATE FUNCTION make_transaction_to_external (
+    origin_account_id_p VARCHAR(30),
+	destination_account_id_p VARCHAR(30),
+    amount_p money,
+    transaction_desc_p VARCHAR(256) ) 
+RETURNS int 
+LANGUAGE plpgsql  
+AS  $$  
+DECLARE lastid int;
+BEGIN  
+    UPDATE Accounts SET balance = balance - amount_p WHERE Account_number  = CAST (RIGHT(origin_account_id_p,10) AS INT);
+    
+    INSERT INTO Transactions (origin_account_number,destination_account_number,amount,transaction_date,transaction_desc) VALUES (origin_account_id_p ,destination_account_id_p,amount_p,current_date,transaction_desc_p) RETURNING transaction_id INTO lastid;
+    RETURN lastid;
+    
+    --- SQL statements / logic /condition.   
+END  $$
