@@ -4,52 +4,37 @@ const verifyBearerToken = require ("../middleware/verifyBearerToken.middleware")
 const verifyToken = require ("../middleware/verifyToken.middleware");
 const transactionService = require ("../services/transaction.service");
 const accountService = require ("../services/account.service");
-const jwt = require('jsonwebtoken');
+const verifyAccountForTransaction = require('../middleware/verifyAccountForTransaction.middleware');
 const router = express.Router();
 
 router.route("/transaction/")
-.post([contentType, verifyBearerToken, verifyToken], async (req,res, next) => {
+.get ([verifyBearerToken, verifyToken], async (req,res, next) => {
     try {
         let decodedUser = req.decodedToken.user;
+        console.log(decodedUser.email)
+        let response = await transactionService.getTransactionsById(decodedUser.userId);
+        res.status(200).json({user: response});
+        
+
+    }catch (error){
+        next(error);
+    }
+
+})
+.post([contentType, verifyBearerToken, verifyToken, verifyAccountForTransaction ], async (req,res, next) => {
+    try {
         let trans = req.body.transaction;
-        //Get user accounts by user id
-        let originAccount = await accountService.getAccountByAccountNumber(Number(trans.origin_account.slice(trans.origin_account.length - 10)));
-        let destinationAccount = await accountService.getAccountByAccountNumber(Number(trans.dest_account.slice(trans.dest_account.length - 10)));
-        
-        
-        let userAccounts = await accountService.getAccountsByUserId(decodedUser.userId);
-        console.log(userAccounts);
-        //Check if user has accounts and if accounts belongs to user
-        
-        
-        let userAccountsId = null;
-        if (userAccounts.length > 0){
-            userAccountsId = userAccounts.map((item)=>{
-                return item.account_number;
-            });
-            
-            console.log(originAccount);
-            if (originAccount.account_type != destinationAccount.account_type){
-                res.status(400).json({message: "Accounts types dont match."});
-            }
+        let originAccount = await accountService.getAccountByAccountNumber(Number(trans.originAccount.slice(trans.originAccount.length - 10)));
+        let destinationAccount = await accountService.getAccountByAccountNumber(Number(trans.destAccount.slice(trans.destAccount.length - 10)));
 
-            if (userAccountsId.includes(originAccount.account_number )) {
-                let transactionRes = await transactionService.makeTransaction(trans);
-                res.status(200).json({message: "made transaction"});
-            }
-            else {
-                res.status(400).json({message: "could'nt make transaction."});
-            }
-        
+        //Check accounts dont match
+        if (originAccount.account_type != destinationAccount.account_type){
+            res.status(400).json({message: "Accounts types dont match."});
         }
-        else {
-            res.status(400).json({message: "could'nt make transaction. User doesn't have accounts or accounts don't match logged user."});
-        }
-
-
-        //If the origin account matches the one the user accounts the make the transaction 
         
-        
+        let transactionRes = await transactionService.makeTransaction(trans);
+        res.status(200).json({message: "made transaction"});
+
     }catch (error){
         next(error);
     }
@@ -74,39 +59,31 @@ router.route("/transaction/fromexternal")
 });
 
 router.route("/transaction/toexternal")
-.post([contentType,verifyBearerToken,verifyToken], async (req,res, next) => {
+.post([contentType,verifyBearerToken,verifyToken, verifyAccountForTransaction], async (req,res, next) => {
     try {
-        let decodedUser = req.decodedToken.user;
         let trans = req.body.transaction;
+        let transactionRes = await transactionService.makeTransactionToExternal(trans);
+        res.status(200).json({message: "made transaction"});
+        //If the origin account matches the one the user accounts the make the transaction 
         
-        //Get user accounts by user id
-        let originAccount = await accountService.getAccountByAccountNumber(Number(trans.origin_account.slice(trans.origin_account.length - 10)));
-        
-        
-        
-        let userAccounts = await accountService.getAccountsByUserId(decodedUser.userId);
-        //Check if user has accounts and if accounts belongs to user  
-        let userAccountsId = null;
-        if (userAccounts.length > 0){
-            userAccountsId = userAccounts.map((item)=>{
-                return item.account_number;
-            });
+    }catch (error){
+        next(error);
+    }
 
-            if (userAccountsId.includes(originAccount.account_number )) {
-                let transactionRes = await transactionService.makeTransactionToExternal(trans);
-                res.status(200).json({message: "made transaction"});
-            }
-            else {
-                res.status(400).json({message: "could'nt make transaction."});
-            }
-        
+
+});
+
+router.route("/transaction/service")
+.post([contentType,verifyBearerToken,verifyToken, verifyAccountForTransaction], async (req,res, next) => {
+    try {
+        let trans = req.body.transaction;
+        let response = await transactionService.makeTransactionToService();
+        if (response != -1) {
+            res.status(200).json({message: "made transaction"});
         }
         else {
-            res.status(400).json({message: "could'nt make transaction. User doesn't have accounts or accounts don't match logged user."});
+            res.status(200).json({message: "Bad service or account type!"});
         }
-
-
-        //If the origin account matches the one the user accounts the make the transaction 
         
         
     }catch (error){

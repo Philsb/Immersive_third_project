@@ -6,7 +6,7 @@ CREATE FUNCTION make_transaction_from_external (
 RETURNS int 
 LANGUAGE plpgsql  
 AS  $$  
-DECLARE lastid int;
+DECLARE lastid int; 
 BEGIN  
     UPDATE Accounts SET balance = balance + amount_p WHERE Account_number = CAST (RIGHT(destination_account_id_p,10) AS INT);
     
@@ -14,4 +14,4 @@ BEGIN
     RETURN lastid;
     
     --- SQL statements / logic /condition.   
-END  $$
+END  $$;

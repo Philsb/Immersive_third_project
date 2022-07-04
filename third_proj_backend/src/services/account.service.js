@@ -16,10 +16,12 @@ class AccountService {
     
     static async getAccountsByUserId (userId) {
         let response = null;
+        console.log("ACcount holder: ", userId);
         const query = {
             text : 'SELECT * FROM Accounts WHERE account_holder = $1;',
             values: [userId]
         }
+        
         
         response = await DbClient.query(query);
         return response.rows;
@@ -27,14 +29,16 @@ class AccountService {
 
     static async addAccount(accountData) {
         let response = null;
-        const queryAddUser = {
-            text: `INSERT INTO Accounts (account_holder, account_type) VALUES ($1, (SELECT type_id FROM Account_type WHERE type_name = $2));`,
+        const queryAddAccount = {
+            text: `INSERT INTO Accounts (account_holder, account_type) 
+                    VALUES ($1, (SELECT type_id FROM Account_type WHERE type_name = $2)) 
+                    RETURNING account_number;`,
             values: [ 
                     accountData.userId, 
                     accountData.accountType]
             
         } 
-        response = await DbClient.query(queryAddUser);
+        response = await DbClient.query(queryAddAccount);
         return response.rows[0] ;
     } 
 

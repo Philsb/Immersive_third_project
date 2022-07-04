@@ -8,4 +8,4 @@ $$
 BEGIN
     return (SELECT user_type FROM Users WHERE user_id = userID);
 END; 
-$$
+$$;

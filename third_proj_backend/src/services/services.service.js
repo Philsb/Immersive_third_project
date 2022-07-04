@@ -2,34 +2,106 @@ const DbClient = require("../configs/dbHandle.config");
 class ServicesService {
 
         // Query all documents
-    static async getUser (userId) {
+        static async getAllServices () {
+            let response = null;
+            const query = {
+                text : 'SELECT * FROM Users_services;'
+            }
+    
+            response = await DbClient.query(query);
+            return response.rows;
+        }
+    
+    
+    // Query all documents
+    static async getService (serviceId) {
         let response = null;
         const query = {
-            text : 'SELECT * FROM Users_regular WHERE userId = $1;',
-            values: [userId]
+            text : 'SELECT * FROM Users_service WHERE user_id = $1;',
+            values: [serviceId]
         }
 
         response = await DbClient.query(query);
         return response.rows[0];
     }
 
-    static async addUser(userData) {
-        let response = null;
+    static async addService(serviceData) {
+        let response = null;    
         const query = {
-            text: "INSERT INTO Users(username, password, firstName, lastName, email, gender, dateOfBirth, creditCardNumber, creditCardType) VALUES ($1, $2, $3, $4, $5, $6, $7 ,$8, $9) RETURNING *;" ,
-            values: [userData.username, 
-                    userData.password, 
-                    userData.firstName, 
-                    userData.lastName ? userData.lastName : null, 
-                    userData.email, 
-                    userData.gender, 
-                    userData.dateOfBirth, 
-                    userData.creditCardNumber ? userData.creditCardNumber : null, 
-                    userData.creditCardType ? userData.creditCardType : null]
+            text: `SELECT * FROM add_service_user($1,$2,$3);`,
+           values: [ 
+            serviceData.description, 
+            serviceData.basePrice,
+            serviceData.subTime]
+            
+        }
+        response = await DbClient.query(query);
+        return response.rows[0].add_service_user ;
+    } 
+
+    static async addSubscription(subscriptionData) {
+        let response = null;    
+        const query = {
+            text: `INSERT INTO Account_subscription (account_number_FK, service_id_FK, last_payed, recurrent_payment, debt_amount) 
+                    VALUES ($1, $2, current_date, $3, 0.0)
+                    RETURNING account_number_FK, service_id_FK;`,
+           values: [ 
+            subscriptionData.accountNumber, 
+            subscriptionData.serviceId,
+            subscriptionData.recurrentPayment]
+            
         }
         response = await DbClient.query(query);
         return response.rows[0] ;
     } 
+
+    static async deleteSubscription(subscriptionData) {
+        let response = null;    
+        const query = {
+            text: `DELETE FROM Account_subscription WHERE account_number_FK = $1 AND service_id_FK = $2
+                    RETURNING account_number_FK, service_id_FK;`,
+           values: [ 
+            subscriptionData.accountNumber,
+            subscriptionData.serviceId]
+            
+        }
+        response = await DbClient.query(query);
+        return {message: {
+            deleted: response.rows[0]
+        }} ;
+    }
+    
+
+    static async changeRecurrentPayment(subscriptionData) {
+        let response = null;    
+        const query = {
+            text: `UPDATE Account_subscription SET recurrent_payment = $3 WHERE account_number_FK = $1 AND service_id_FK = $2
+                    RETURNING recurrent_payment;`,
+           values: [ 
+            subscriptionData.accountNumber,
+            subscriptionData.serviceId,
+            subscriptionData.recurrentPayment]
+            
+        }
+        response = await DbClient.query(query);
+        return response.rows[0] ;
+    }
+
+    static async getSubscribedServices (userId) {
+        let response = null;    
+        
+        const query = {
+            text: `SELECT * 
+                   FROM Account_subscription JOIN Accounts 
+                   ON Account_subscription.account_number_FK = Accounts.account_number
+                   JOIN Users_services ON Account_subscription.service_id_FK = Users_services.user_id
+                   WHERE Accounts.account_holder = $1;`,
+           values: [userId]
+            
+        }
+        response = await DbClient.query(query);
+        return response.rows ; 
+    }
 }
 
-module.exports = UserService;
+module.exports = ServicesService;

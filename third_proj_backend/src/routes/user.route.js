@@ -11,41 +11,29 @@ router.route("/user/")
 .get([verifyBearerToken, verifyToken], async (req,res, next) => {
     try {
         let decodedUser = req.decodedToken.user;
-        console.log(decodedUser.email)
-        let response = await UserService.getUserByEmail(decodedUser.email);
+        let response = await UserService.getUserDetailsById(decodedUser.userId);
         res.status(200).json({user: response});
     }catch (error){
         next(error);
     }
 
 
-});
-
-router.route("/user/history/")
-.get(contentType, async (req,res, next) => {
-    ;
+})
+.put([contentType,verifyBearerToken,verifyToken], async (req,res, next) => {
     try {
-        
-        
+        let decodedUser = req.decodedToken.user;
+        let userData = req.body.userData;
+        userData.userId = decodedUser.userId;
+        let response = await UserService.updateRegularUserDetails(userData);
+        res.status(200).json({user: response});
     }catch (error){
         next(error);
     }
 
 
-});
-
-router.route ("/user/subscriptions/")
-.get(contentType, async (req,res, next) => {
-    ;
-    try {
-        
-        
-    }catch (error){
-        next(error);
-    }
+})
 
 
-});
 
 
 module.exports = router;
