@@ -1,0 +1,15 @@
+.account-card {
+    &__root {
+        display:flex;
+        flex-direction: column;
+    }
+
+    &__currency {
+        font-size: 1.2rem;
+    }
+
+    &__balance {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+}

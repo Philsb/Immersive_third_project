@@ -1,0 +1,26 @@
+@import "./styles/variables/mediaSizes.scss";
+@import "./styles/variables/fonts.scss";
+@import "./styles/variables/colors.scss";
+@import "./styles/variables/constants.scss";
+
+@import "./styles/mixins/global-mixins.scss";
+@import "./styles/base/base.scss";
+@import "./styles/base/utilityClases.scss";
+
+//Components
+@import "./components/Container/FlexContainer.scss";
+@import "./components/header/Header.scss";
+@import "./components/CenteredBody/CenteredBody.scss";  
+@import "./components/Footer/Footer.scss";
+@import "./components/searchbar/Searchbar.scss";
+@import "./components/Divider/Divider.scss";
+@import "./components/carousel/StaticCarousel.scss"; 
+@import "./components/LoginModal/LoginModal.scss";
+@import "./components/MainBody/MainBody.scss";
+@import "./components/card/CardWrapper.scss";
+@import "./components/card/AccountCard.scss";
+@import "./components/Sidebar/SidebarLayout.scss";
+@import "./pages/dashboardPage/dashboardPage.scss";
+@import "./components/Container/OverflowContainer.scss";
+@import "./pages/profile/profile.scss";
+

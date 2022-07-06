@@ -1,0 +1,55 @@
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+
+ html {
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+  }
+  
+  /* Sections
+     ========================================================================== */
+  
+  /**
+   * Remove the margin in all browsers.
+   */
+  
+  body {
+    margin: 0;
+    background-image: linear-gradient($color-primary, $color-primary-2);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: $font-light;
+    font-family: $main-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /**
+   * Render the `main` element consistently in IE.
+   */
+  
+  main {
+    display: block;
+  }
+  
+  p {
+    margin:0px;
+  }
+
+  a {
+    color:inherit;
+    text-decoration: inherit;
+    margin:0px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }

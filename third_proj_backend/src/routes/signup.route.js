@@ -10,15 +10,13 @@ const router = express.Router();
 router.route("/signup/")
 .post(contentType, async (req,res, next) => {
     try {
-        console.log("post signup");
-        let response =  await userService.addUser(req.body.user);
+        let response =  await userService.addUser(req.body.signup);
+        await AccountService.addAccount({userId:  response, accountType: "colones"});
+        await AccountService.addAccount({userId:  response, accountType: "dollars"});
         
-        await AccountService.addAccount({userId:  response.userId, accountType: "colones"});
-        await AccountService.addAccount({userId:  response.userId, accountType: "dollars"});
-        
-        let userInfo = userService.getUserById(response.userId);
+        let userInfo = await userService.getUserById(response);
         const tokenInfo = {user: {
-                                userId: response.user_id,
+                                userId: userInfo.user_id,
                                 fullname: userInfo.fullname,
                                 email: userInfo.email
 

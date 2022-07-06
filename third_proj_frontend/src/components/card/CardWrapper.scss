@@ -1,0 +1,26 @@
+.card-wrapper {
+    &__root {
+        height:100%;
+    }
+
+    &__title-container{
+        border-top-left-radius: $primary-round-border;
+        border-top-right-radius: $primary-round-border;
+        font-size: 1.5rem;
+        color: $font-dark;
+        font-weight: 500;
+        background-color: $font-light;
+        border-bottom: 1px solid $color-secondary;
+        padding: $primary-padding
+    }
+
+    &__main-container {   
+        border-bottom-left-radius: $primary-round-border;
+        border-bottom-right-radius: $primary-round-border;
+        background-color: $color-secondary;
+        padding: $primary-padding;
+        padding-top: 3rem;
+
+    }
+
+}

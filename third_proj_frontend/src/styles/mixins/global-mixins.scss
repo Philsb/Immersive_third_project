@@ -1,0 +1,33 @@
+@mixin btn-mixin {
+    background-color:$background;
+    border:none;
+    
+}
+
+@mixin flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin centered-body-margin {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+@mixin mobile-margin {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+@mixin centered-body-padding {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+@mixin hover-focus {
+    box-shadow: 0 0px 8px rgba(0,0,0,0.5); 
+}
+
+@mixin list {
+    list-style-type: none; 
+    padding: 0;
+    margin: $primary-margin; 
+}

@@ -33,7 +33,8 @@ router.route("/services/subscription")
 .post([contentType,verifyBearerToken,verifyToken,verifyAccountForSubscription], async (req,res, next) => {
     try {
         let response = await ServicesService.addSubscription(req.body.subscriptionData);
-        res.status(200).json({response});
+        console.log(response);
+        res.status(200).json(response);
 
     
     }catch (error){
@@ -43,10 +44,9 @@ router.route("/services/subscription")
 })
 .delete([contentType,verifyBearerToken,verifyToken,verifyAccountForSubscription], async (req,res, next) => {
     try {
+        console.log(req.body.subscriptionData);
         let response = await ServicesService.deleteSubscription(req.body.subscriptionData);
         res.status(200).json(response);
-        
-
     
     }catch (error){
         next(error);

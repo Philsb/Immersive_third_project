@@ -1,0 +1,10 @@
+.centered-body {
+    min-height: 70vh;
+    @include mobile-margin;
+    @media (min-width:$media-pc ){
+
+        @include centered-body-margin;
+    
+    }
+    
+}

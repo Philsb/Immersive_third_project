@@ -1,0 +1,19 @@
+.login-modal {
+    background-color: $color-primary;
+    position: absolute;
+    display:flex;
+    top: 6rem;
+    right: 20rem; 
+    max-width: 20rem; 
+    color:$font-light;
+    padding: $primary-padding;
+    border-radius: $primary-round-border;
+
+    &__title-container {
+        display:flex;
+        
+    }
+    &__title {
+        font-size: 1.5rem;
+    }
+}

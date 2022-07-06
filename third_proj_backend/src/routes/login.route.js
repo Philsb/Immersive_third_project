@@ -9,7 +9,7 @@ router.route("/login/")
 .post(contentType, async (req,res, next) => {
     try {
 
-        let user = req.body.user;
+        let user = req.body.login;
         let response =  await userService.getUserByEmail(user.email);
         if (response && response.password == user.password){
 

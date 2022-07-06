@@ -5,7 +5,8 @@ class TransactionService {
         let response = null;
         const query = {
             text : `SELECT * FROM Transactions 
-                    JOIN Accounts ON CAST (RIGHT(Transactions.origin_account_number,10) AS INT) = Accounts.account_number;
+                    JOIN Accounts ON CAST (RIGHT(Transactions.origin_account_number,10) AS INT) = Accounts.account_number 
+                    OR CAST (RIGHT(Transactions.destination_account_number,10) AS INT) = Accounts.account_number 
                     WHERE Accounts.account_holder = $1`,
             values: [userId]
         }

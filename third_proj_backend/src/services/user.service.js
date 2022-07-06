@@ -72,7 +72,7 @@ class UserService {
             
         }
         response = await DbClient.query(queryAddUser);
-        return {userId: response.rows[0].add_regular_user} ;
+        return response.rows[0].add_regular_user ;
     } 
 
     static async updateRegularUserDetails (userData) {

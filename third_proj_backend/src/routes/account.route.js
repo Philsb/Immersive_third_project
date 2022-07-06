@@ -10,7 +10,6 @@ router.route("/account/")
 .get([verifyBearerToken, verifyToken], async (req,res, next) => {
     try {
         let decodedUser = req.decodedToken.user;
-        console.log("BRUH. ", decodedUser);
         let response = await AccountService.getAccountsByUserId(decodedUser.userId);
         res.status(200).json(response);
     }catch (error){
@@ -26,7 +25,7 @@ router.route("/account/")
         accountData.accountType = req.body.accountData.accountType;
         accountData.userId = decodedUser.userId;
 
-        console.log(accountData);
+        
         let response = await AccountService.addAccount(accountData);
         res.status(200).json(response);
     }catch (error){

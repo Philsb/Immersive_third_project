@@ -4,6 +4,7 @@ const verifyAccountForTransaction = async (req, res, next) => {
     try {
         let decodedUser = req.decodedToken.user;
         let trans = req.body.transaction;
+        console.log(trans);
         //Get user accounts by user id
         let originAccountNumber = Number(trans.originAccount.slice(trans.originAccount.length - 10));
         let userAccounts = await AccountService.getAccountsByUserId(decodedUser.userId);

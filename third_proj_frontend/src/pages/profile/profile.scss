@@ -1,0 +1,22 @@
+.profile-page {
+
+    &__profile-card{
+        background-color: $color-secondary;
+        border-radius: $primary-round-border;
+    }
+    &__img {
+        width: 15rem;
+        height: 15rem;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    &__img-container {
+        @include flex-col;
+        align-items: center;
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+    }
+    &__img-title {
+        font-size: 2rem;
+    }
+}

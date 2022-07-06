@@ -13,7 +13,7 @@ router.route("/transaction/")
         let decodedUser = req.decodedToken.user;
         console.log(decodedUser.email)
         let response = await transactionService.getTransactionsById(decodedUser.userId);
-        res.status(200).json({user: response});
+        res.status(200).json(response);
         
 
     }catch (error){
@@ -32,6 +32,7 @@ router.route("/transaction/")
             res.status(400).json({message: "Accounts types dont match."});
         }
         
+
         let transactionRes = await transactionService.makeTransaction(trans);
         res.status(200).json({message: "made transaction"});
 

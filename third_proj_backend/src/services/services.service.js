@@ -40,35 +40,48 @@ class ServicesService {
     } 
 
     static async addSubscription(subscriptionData) {
-        let response = null;    
+        let firstResponse = null;    
         const query = {
             text: `INSERT INTO Account_subscription (account_number_FK, service_id_FK, last_payed, recurrent_payment, debt_amount) 
                     VALUES ($1, $2, current_date, $3, 0.0)
-                    RETURNING account_number_FK, service_id_FK;`,
+                    RETURNING *`,
            values: [ 
             subscriptionData.accountNumber, 
             subscriptionData.serviceId,
             subscriptionData.recurrentPayment]
             
         }
-        response = await DbClient.query(query);
-        return response.rows[0] ;
+        firstResponse = await DbClient.query(query);
+        if (firstResponse.rows.length > 0) {
+            const subquery = {
+                text: `SELECT * 
+                        FROM Account_subscription JOIN Accounts 
+                        ON Account_subscription.account_number_FK = Accounts.account_number
+                        JOIN Users_services ON Account_subscription.service_id_FK = Users_services.user_id
+                        WHERE Account_subscription.account_number_FK = $1 AND Account_subscription.service_id_FK = $2;`,
+               values: [ 
+                subscriptionData.accountNumber, 
+                subscriptionData.serviceId]
+                
+            }
+            return  (await DbClient.query(subquery)).rows[0];
+
+        }
+        return firstResponse.rows[0] ;
     } 
 
     static async deleteSubscription(subscriptionData) {
         let response = null;    
         const query = {
             text: `DELETE FROM Account_subscription WHERE account_number_FK = $1 AND service_id_FK = $2
-                    RETURNING account_number_FK, service_id_FK;`,
+                    RETURNING *`,
            values: [ 
             subscriptionData.accountNumber,
             subscriptionData.serviceId]
             
         }
         response = await DbClient.query(query);
-        return {message: {
-            deleted: response.rows[0]
-        }} ;
+        return response.rows[0];
     }
     
 

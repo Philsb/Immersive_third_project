@@ -1,4 +1,4 @@
-CREATE TYPE income AS ENUM ('employed', 'bussiness owner', 'self-employed', 'retired', 'investor', 'other');
+CREATE TYPE income AS ENUM ('employed', 'business owner', 'self-employed', 'retired', 'investor', 'other');
 CREATE TYPE user_type AS ENUM ('S', 'R', 'A');
 
 
@@ -54,12 +54,13 @@ CREATE TABLE Users_services(
 CREATE TABLE Account_type (
     type_id serial PRIMARY KEY,
     type_name VARCHAR(100) UNIQUE NOT NULL,
-    type_description VARCHAR (256)
+    type_description VARCHAR (256),
+    type_abbreviation VARCHAR (30)
 
 );
 
-INSERT INTO Account_type (type_name, type_description) VALUES ('dollars', 'US Currency');
-INSERT INTO Account_type (type_name, type_description) VALUES ('colones', 'US Currency');
+INSERT INTO Account_type (type_name, type_description, type_abbreviation) VALUES ('dollars', 'US Currency', 'USD');
+INSERT INTO Account_type (type_name, type_description, type_abbreviation) VALUES ('colones', 'US Currency', 'CRC');
 
 CREATE TABLE Accounts (
     account_number serial PRIMARY KEY,

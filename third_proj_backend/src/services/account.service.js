@@ -5,7 +5,9 @@ class AccountService {
     static async getAccountByAccountNumber (AccountNumber) {
         let response = null;
         const query = {
-            text : 'SELECT * FROM Accounts WHERE account_number = $1;',
+            text : `SELECT account_number, account_holder, type_name, type_description, balance 
+                    FROM Accounts JOIN Account_type ON Accounts.account_type = Account_type.type_id
+                    WHERE account_number = $1;`,
             values: [AccountNumber]
         }
         
@@ -18,7 +20,9 @@ class AccountService {
         let response = null;
         console.log("ACcount holder: ", userId);
         const query = {
-            text : 'SELECT * FROM Accounts WHERE account_holder = $1;',
+            text : `SELECT account_number, account_holder, type_name, type_description, type_abbreviation, balance 
+                    FROM Accounts JOIN Account_type ON Accounts.account_type = Account_type.type_id
+                    WHERE account_holder = $1;`,
             values: [userId]
         }
         

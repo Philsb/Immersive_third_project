@@ -1,0 +1,64 @@
+.static-carousel {
+    width: 100%;
+
+    & ::-webkit-scrollbar-track
+    {
+        background-color: #F5F5F5;
+    }
+
+    & ::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    & ::-webkit-scrollbar-thumb
+    {
+        background-color: #0ae;
+        
+        background-image: -webkit-gradient(linear, 0 0, 0 100%,
+                        color-stop(.5, rgba(255, 255, 255, .2)),
+                        color-stop(.5, transparent), to(transparent));
+    }
+    &__list {
+        list-style-type: none; 
+        padding: 0; 
+        display:flex;
+        flex-wrap: nowrap ;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        li {
+            margin-top: $primary-margin; 
+            padding-bottom: $primary-margin; 
+            height: 5rem;
+            margin: 0.1rem;
+
+            button {
+                border:none;
+                background-color: #0000;
+                cursor:pointer;
+            }
+        }
+
+        li:first-child {
+            margin-left: 0px;
+        }
+        li:last-child {
+            margin-right: 0px;
+        }
+    }
+
+    &__thumb {
+        height:5rem;
+        border-radius: $primary-round-border;
+    }
+
+    &__img{
+        width: 100%;
+        border-radius: $primary-round-border;
+    }
+
+
+}

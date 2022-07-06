@@ -1,0 +1,92 @@
+.header {
+    margin: 0px;
+    max-height: $header-height;
+    display:flex;
+    background-color: $color-primary;
+    position:fixed;
+    z-index:10;
+    top:0;
+    width:100%;
+    border-bottom: 1px solid $color-secondary;
+    &__logo-container{
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        flex-basis: 50%;
+        margin-left: 0.1rem;
+    }
+
+
+    &__links-container{
+        flex-grow: 1;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+
+    }
+
+    &__logo {
+        width: $header-height;
+        height: $header-height;
+        object-fit: contain;
+    }
+    &__logo-letters {
+        width: calc($header-height*2);
+        height: calc($header-height*2);
+        object-fit: contain;
+    }
+
+    &__company-name {
+        margin-left: 1rem;
+        color:white;
+        display:none;
+        @media (min-width:$media-tablet){
+            display: block;
+        }
+    }
+    &__hamburger {
+        display: block;
+        background-color: $color-primary;
+        border:none;
+
+        @media (min-width:$media-tablet){
+            display: none;
+        }
+    }
+
+    &__shop-cart-cont{
+        display: flex;
+        align-items: items;
+        margin-right: 0.5rem;
+        position:relative;
+    }
+
+    &__circle{
+
+        display: none;
+        position:absolute;
+        top:0.8rem;
+        right: 0rem;
+        font-size: 0.7rem;
+        color:rgb(255, 60, 0);
+        &--active{
+            display:block;
+        }
+    }
+
+} 
+
+.anchor-list-h {
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    list-style-type: none;
+    color:$font-light;
+    &__anchor{
+        color: $font-light;
+        margin: 1rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+}

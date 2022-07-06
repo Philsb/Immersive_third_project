@@ -1,0 +1,43 @@
+.sidebar-layout {
+    &__root {
+        display:flex;
+        
+    }
+
+    &__sidebar {
+        padding: $primary-padding;
+        @include flex-col;
+        align-items: center;
+        
+    }
+
+    &__main-content {
+        flex-grow: 1;
+        margin-right: 1rem;
+    }
+
+    &__icon-container {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 1rem;
+        font-size: $size-font-l;
+        background-color: $color-secondary;
+        min-width:2rem;
+        min-height:2rem;
+        padding: 0.5rem;
+        @include flex-col;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: $color-button;
+            transition: background-color 0.5s;
+        }
+        &--active {
+            background-color: $color-button;
+        }
+    }
+
+    
+    
+}
