@@ -1,4 +1,9 @@
+import ServiceCard from "../../components/card/ServiceCard";
+import SubscriptionCard from "../../components/card/SubscriptionCard";
+import FlexContainer from "../../components/Container/FlexContainer";
+import WrapContainer from "../../components/Container/WrapContainer";
 import List from "../../components/List/List";
+import Loading from "../../components/Loading/Loading";
 import Modal from "../../components/Modal/Modal";
 import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
@@ -79,19 +84,31 @@ const Services = ()=> {
     <section>
     <h1>Services</h1>
     <h2>Available services</h2>
-        <List>
+        <WrapContainer>
             {loadedServices ? 
                 loadedServices.map(service=>{
-                    return (<div>
-                        {service.description}
+                    const subtime =  (service.sub_time.hours ? service.sub_time.hours : 0 )*60 + (service.sub_time.minutes ? service.sub_time.minutes : 0) + (service.sub_time.seconds ? service.sub_time.seconds : 0 ) * (1/60)
+                    return (
+                    <ServiceCard
+                        serviceName = {service.provider_name}
+                        serviceType = {service.service_type}
+                        handleSubscription = {()=>{handleSubscribe(service.user_id)}}
+                        basePrice = {service.base_price}
+                        subTimePerMinute = {subtime .toFixed(2)}
+                    />
+                    /*{<div>
+                        {service.provider_name}
+                        {service.service_type}
                         CRC {service.base_price}
                         <button onClick={()=>{handleSubscribe(service.user_id)}}>Subscribe</button>
-                    </div>);
+                    </div>}*/
+                    
+                    );
                 })
                 : 
-                <></>
+                <Loading/>
             }
-        </List>
+        </WrapContainer>
         
         
     <h2>Subscribed services</h2>
@@ -99,17 +116,24 @@ const Services = ()=> {
         <List>
             {subscribedServices ? 
                 subscribedServices.map(subscription=>{
+                    
                     return (
+                    <SubscriptionCard
+                        serviceName = {subscription.provider_name}
+                        debt = {subscription.debt_amount}
+                    />
+                    );
+                    /*return (
                     <div>
-                        {subscription.description}
+                        {subscription.provider_name}
                         {generateIBAN( subscription.account_number_fk)}
                         {subscription.debt_amount}
                         {subscription.last_payed}
                         <button onClick={()=>{handleUnsubscribe(subscription.account_number_fk, subscription.user_id)}}>Delete Subscription</button>
-                    </div>);
+                    </div>);*/
                 })
                 : 
-                <></>
+                <Loading/>
             }
         </List>
     </section>);

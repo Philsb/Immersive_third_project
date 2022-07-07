@@ -9,9 +9,9 @@ const DashboardPage = () => {
                 profileLink = {{iconClass: "fa-user", to: "profile"}}
                 links = {[
                     {iconClass: "fa-exchange", to: "transfer"},
-                    {iconClass: "fa-history", to: "history"},
-                    {iconClass: "fa-money", to: "addmoney"}
-
+                    {iconClass: "fa-money", to: "addmoney"},
+                    {iconClass: "fa-tint", to: "services"},
+                    {iconClass: "fa-history", to: "history"}
                 ]}>
                 
                 <Outlet/>  

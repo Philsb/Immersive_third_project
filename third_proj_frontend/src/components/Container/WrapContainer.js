@@ -1,6 +1,6 @@
 import List from "../List/List";
-const OverflowContainer = (props)=>{
-    const block = "overflow-container";
+const WrapContainer = (props)=>{
+    const block = "wrap-container";
     const {children} = props;
     if (children == null || children == undefined) {
         return <></>;
@@ -18,4 +18,4 @@ const OverflowContainer = (props)=>{
     );
 };
 
-export default OverflowContainer;
+export default WrapContainer;

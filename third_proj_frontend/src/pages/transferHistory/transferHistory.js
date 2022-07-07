@@ -1,6 +1,7 @@
 import AccountHistoryEntry from "../../components/AccountHistoryEntry/AccountHistoryEntry";
 import Divider from "../../components/Divider/Divider";
 import List from "../../components/List/List";
+import Loading from "../../components/Loading/Loading";
 import SearchBar from "../../components/searchbar/Searchbar";
 import useFetch from "../../hooks/useFetch";
 
@@ -13,7 +14,6 @@ const AccountHistory = () => {
                                                         Authorization: "Bearer "+ token
                                                     });
     
-    console.log(loadedHistory);
     return (
         <section>   
             <h1>Transfer history</h1>
@@ -35,7 +35,7 @@ const AccountHistory = () => {
                     })}
                 </List>
                 :
-                <>Cargando</>
+                <Loading/>
             
             }
             

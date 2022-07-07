@@ -27,6 +27,8 @@ function App() {
         <LoginModal/>
         
         <Outlet/>
+        
+        
         {/*
         <Footer/>
         */}

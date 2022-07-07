@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetch = ( url, method, headers, body) => {
+const useFetch = ( url, method, headers, body, delay = 0) => {
 
     const [fetchData, setFetchData] = useState(null);
 
@@ -12,7 +12,12 @@ const useFetch = ( url, method, headers, body) => {
                 body: body,
             })
             .then((res)=>{return res.json();})
-            .then((res) => {setFetchData(res);});
+            .then((res) => {
+                setTimeout (()=>{
+                    setFetchData(res)
+                }, delay)
+                ;
+            });
         }
 
     },[fetchData])

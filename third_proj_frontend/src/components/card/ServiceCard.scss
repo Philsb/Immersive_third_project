@@ -1,0 +1,38 @@
+.service-card {
+
+   &__container{
+        @include flex-col;
+        @include round-border;
+        background-color: #0000;
+        min-height: calc(12rem - 2*$primary-padding);
+        padding: $primary-padding;
+   }
+   &__title {
+        font-size: $size-font-l;
+        font-weight: 500;
+   }
+   &__type {
+        font-weight: 100;
+        margin-top:0.5rem;
+   }
+
+    &__pricing {
+        font-weight: 100;
+        color: $font-light-secondary;
+        margin-top:0.5rem;
+    }
+
+   &__pay-container {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        cursor:pointer;
+        background-color: #0000;
+        color: $font-light;
+
+        &:hover{
+            @include back-color-transition;
+            color: $font-light-secondary;
+        }
+   }
+}

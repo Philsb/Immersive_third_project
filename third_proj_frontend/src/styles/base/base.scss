@@ -23,11 +23,11 @@
   
   body {
     margin: 0;
-    background-image: linear-gradient($color-primary, $color-primary-2);
+    background-image: linear-gradient(-135deg,$color-primary, $color-tertiary-2);
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: $font-light;
-    font-family: $main-font;
+    font-family: $main-font !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -58,4 +58,9 @@
     list-style-type: none; /* Remove bullets */
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margins */
+  }
+
+  button {
+    font-family: inherit;
+    border:none;
   }

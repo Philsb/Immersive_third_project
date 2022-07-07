@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import Form from "../../components/Form/Form";
+import FormInput from "../../components/Form/FormInput";
 import Modal from "../../components/Modal/Modal";
+import Divider from "../../components/Divider/Divider";
+import Loading from  "../../components/Loading/Loading";
 import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
+import TransferMoneyForm from "../../components/Form/TransferMoneyForm";
+
 
 function Transfer () {
-    
+    const block = "transfer-page";
     const token = sessionStorage.getItem("Auth") || "";
     const selectElement = useRef(null);
     const amountInput = useRef(null);
@@ -65,33 +70,23 @@ function Transfer () {
     return (
         
         <section>
-            {
-                loadedAccounts && selectedAccountType ?
-                 
-                <Form onSubmit = {handleTransfer}>
-                    <label htmlFor="originAccount">Select Account:</label>
-                    <select onChange={handleSelectChange} ref={selectElement} name="originAccount" id="originAccount">
-
-                        {loadedAccounts.map((account)=>{
-                            return <option value={account.account_number}>{generateIBAN(account.account_number)}</option>
-                        })}
-                    </select>
-                    
-                    <label htmlFor="destination">Destination Account:</label>
-                    <input type="text" id="destination" name="destination" required/>
-
-                    <label htmlFor="amount">Amount in {selectedAccountType}</label>
-                    <input ref={amountInput} type="number" id="amount" name="amount" defaultValue={0.0} required/>
-
-                    <label htmlFor="description">Description</label>
-                    <input ref={amountInput} type="text" id="description" name="description" required/>
-                    
-
-
-                </Form>
-                :
-                <></>
-            }
+            <h1>Transfer money</h1>
+            <Divider/>
+                {
+                    loadedAccounts && selectedAccountType ?
+                    <TransferMoneyForm
+                        handleTransfer = {handleTransfer}
+                        handleSelectChange = {handleSelectChange}
+                        selectElementRef = {selectElement}
+                        amountInput = {amountInput}
+                        loadedAccounts = {loadedAccounts}
+                        selectedAccountType = {selectedAccountType}
+                        isReceivingMoney = {false}
+                    />
+                        
+                    :
+                    <Loading/>
+                }
         
                     
 

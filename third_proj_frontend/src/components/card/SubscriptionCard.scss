@@ -1,0 +1,35 @@
+.subscription-card{
+    &__container{
+        @include flex-col;
+        @include round-border;
+        background-color:$color-secondary;
+        min-height: calc(12rem - 2*$primary-padding);
+        padding: $primary-padding;
+        border: 0.1rem solid $font-light;
+        margin-top: 2rem;
+   }
+   &__title {
+        font-size: $size-font-l;
+        font-weight: 500;
+   }
+   &__debt {
+    margin-top: 3rem;
+    font-weight: 600;
+    font-size: $size-font-l;
+
+   }
+
+   &__pay-container {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        cursor:pointer;
+        background-color: #0000;
+        color: $font-light;
+
+        &:hover{
+            @include back-color-transition;
+            color: $font-light-secondary;
+        }
+   }
+}

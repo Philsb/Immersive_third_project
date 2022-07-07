@@ -31,3 +31,13 @@
     padding: 0;
     margin: $primary-margin; 
 }
+
+@mixin round-border{
+    border:none;
+    border-radius: $primary-round-border;
+    padding: $primary-padding;
+}
+
+@mixin back-color-transition {
+    transition: background-color 0.5s;
+}

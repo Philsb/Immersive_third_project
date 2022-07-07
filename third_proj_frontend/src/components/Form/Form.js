@@ -5,14 +5,12 @@ export default function Form (props) {
 
     return (
         
-        <div>
-            <form onSubmit={onSubmit}>
-                {childrenComponents}
-                <div className={`${block}__input`}>
-                    <input type = "submit" name = "submit" value = "Submit" />
-                </div>  
-            </form>
-        </div>
+        <form className={`${block}`} onSubmit={onSubmit}>
+            {childrenComponents}
+            <div className={`${block}__submit-container`}>
+                <input  className={`${block}__submit-button`} type = "submit" name = "submit" value = "Submit" />
+            </div>  
+        </form>
         
     );
     

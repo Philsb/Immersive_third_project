@@ -1,9 +1,9 @@
 import AccountCard from "../../components/card/AccountCard";
 import CardWrapper from "../../components/card/CardWrapper";
 import FlexContainer from "../../components/Container/FlexContainer";
-import OverflowContainer from "../../components/Container/OverflowContainer";
 import Divider from "../../components/Divider/Divider";
 import List from "../../components/List/List";
+import Loading from "../../components/Loading/Loading";
 import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
 
@@ -36,7 +36,8 @@ const DashboardDetails = () => {
                 })}
             </FlexContainer>
             
-            : "Not loaded Yet"
+            : 
+            <Loading/>
 
         }
 

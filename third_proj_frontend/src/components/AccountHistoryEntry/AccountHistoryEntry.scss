@@ -4,7 +4,15 @@
     border-radius: $primary-round-border;
     display:flex;
     align-items: center;
+    margin-top: 1rem;
     &__cell {
+        
+    }
+    &__icon {
+        background-color: $color-success;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-right: 1rem;
         
     }
     &__cell-title {
@@ -22,6 +30,8 @@
         display:flex;
         justify-content: space-between;
     }
-
+    &__main-container {
+        width: 100%;
+    }
 
 }

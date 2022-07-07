@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import Divider from "../../components/Divider/Divider";
 import Form from "../../components/Form/Form";
+import TransferMoneyForm from "../../components/Form/TransferMoneyForm";
+import Loading from "../../components/Loading/Loading";
 import Modal from "../../components/Modal/Modal";
 import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
 
 const AddMoney = ()  => {
+    const block = "add-money-page";
     const token = sessionStorage.getItem("Auth") || "";
     const selectElement = useRef(null);
     const amountInput = useRef(null);
@@ -62,34 +66,22 @@ const AddMoney = ()  => {
     return (
         
         <section>
+            <h1>Add money</h1>
+            <Divider/>
             {
                 loadedAccounts && selectedAccountType ?
-                 
-                <Form onSubmit = {handleTransfer}>
-                    
-                    
-                    <label htmlFor="originAccount">External Account:</label>
-                    <input type="text" id="originAccount" name="originAccount" required/>
+                <TransferMoneyForm
+                    handleTransfer = {handleTransfer}
+                    handleSelectChange = {handleSelectChange}
+                    selectElementRef = {selectElement}
+                    amountInput = {amountInput}
+                    loadedAccounts = {loadedAccounts}
+                    selectedAccountType = {selectedAccountType}
+                    isReceivingMoney = {true}
+                />
 
-                    <label htmlFor="destination">Destination Account:</label>
-                    <select onChange={handleSelectChange} ref={selectElement} name="destination" id="destination">
-
-                        {loadedAccounts.map((account)=>{
-                            return <option value={account.account_number}>{generateIBAN(account.account_number)}</option>
-                        })}
-                    </select>
-
-                    <label htmlFor="amount">Amount in {selectedAccountType}</label>
-                    <input ref={amountInput} type="number" id="amount" name="amount" defaultValue={0.0} required/>
-
-                    <label htmlFor="description">Description</label>
-                    <input ref={amountInput} type="text" id="description" name="description" required/>
-                    
-
-
-                </Form>
                 :
-                <></>
+                <Loading/>
             }
         
                     

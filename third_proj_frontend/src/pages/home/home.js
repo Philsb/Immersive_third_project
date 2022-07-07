@@ -3,10 +3,14 @@ import MainBody from "../../components/CenteredBody/CenteredBody";
 
 
 function Home () {
+    block = {"home"}
     return (
-        <CenteredBody>
-            <h1>Home</h1>
-        </CenteredBody>
+        <section className="">
+            <CenteredBody>
+                <h1>Home</h1>
+            </CenteredBody>
+        </section>
+        
         );
 }
 

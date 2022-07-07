@@ -6,10 +6,10 @@ const AccountHistoryEntry = (props) => {
     const {originAccount, destinationAccount, amount, date ,description}  = props;
     return (
         <div className={`${block}`}>
-            <div className={`${block}`}>
+            <div className={`${block}__icon`}>
                 <i className='fa fa-exchange'></i>
             </div>
-            <div>
+            <div className={`${block}__main-container`}>
                 <div className={`${block}__details`}>
                     <div className={`${block}__cell`}>
                         <div className={`${block}__cell-title`}>{originAccount}</div>

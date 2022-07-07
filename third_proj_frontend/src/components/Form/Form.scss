@@ -1,0 +1,23 @@
+.form {
+    @include flex-col;
+    &__submit-container{
+
+    }
+
+    &__submit-button {
+        background-color: $color-secondary-2;
+        border-radius:  $primary-round-border;
+        width: 100%;
+        border:none;
+        
+        color: $font-light;
+        font-size: 1.5rem;
+        min-height: 4rem;
+
+        &:hover{
+            background-color: $color-tertiary;
+            transition: background-color 0.5s;
+        }
+    }
+
+}
