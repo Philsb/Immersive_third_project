@@ -7,6 +7,7 @@ class TransactionService {
             text : `SELECT * FROM Transactions 
                     JOIN Accounts ON CAST (RIGHT(Transactions.origin_account_number,10) AS INT) = Accounts.account_number 
                     OR CAST (RIGHT(Transactions.destination_account_number,10) AS INT) = Accounts.account_number 
+                    JOIN Account_type ON Accounts.account_type = Account_type.type_id
                     WHERE Accounts.account_holder = $1`,
             values: [userId]
         }

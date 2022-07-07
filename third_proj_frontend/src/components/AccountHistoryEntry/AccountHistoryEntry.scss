@@ -1,0 +1,27 @@
+.account-history-entry{
+    background-color: $color-secondary;
+    padding: $primary-padding;
+    border-radius: $primary-round-border;
+    display:flex;
+    align-items: center;
+    &__cell {
+        
+    }
+    &__cell-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+    &__cell-content {
+        color: $font-light-secondary;
+        font-weight: 600;
+    }
+    &__description-container {
+    
+    }
+    &__details {
+        display:flex;
+        justify-content: space-between;
+    }
+
+
+}

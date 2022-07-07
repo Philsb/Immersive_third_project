@@ -1,5 +1,6 @@
 .searchbar {
     display: flex;
+    background-color: $color-primary-2;
     height:1rem;
     border-radius: $primary-round-border;
     padding:$primary-padding;
@@ -11,12 +12,15 @@
         background-color: inherit;
         border:none;
         width:calc(100% - 2rem - $primary-padding - $primary-padding);
-
+        color: $font-light-secondary;
+        font-size: 1.2rem;
         &:focus {
             outline: none; 
         }
     }
     &__icon {
+        background-color: inherit;
+        color:$font-light;
         margin-left: auto;
         width:2rem;
         border:none

@@ -1,4 +1,7 @@
+import AccountHistoryEntry from "../../components/AccountHistoryEntry/AccountHistoryEntry";
+import Divider from "../../components/Divider/Divider";
 import List from "../../components/List/List";
+import SearchBar from "../../components/searchbar/Searchbar";
 import useFetch from "../../hooks/useFetch";
 
 const AccountHistory = () => {
@@ -13,20 +16,22 @@ const AccountHistory = () => {
     console.log(loadedHistory);
     return (
         <section>   
+            <h1>Transfer history</h1>
+            <Divider/>
+            <SearchBar/>
             {loadedHistory != null ?
                 <List>
+
                     {loadedHistory.map((entry)=>{
-                        return <div>
-                            {entry.origin_account_number}
-                            <hr/>
-                            {entry.destination_account_number}
-                            <hr/>
-                            {entry.amount}
-                            <hr/> 
-                            {entry.transaction_date}
-                            <hr/>
-                            {entry.transaction_desc}
-                        </div>;
+                        return( 
+                        <AccountHistoryEntry
+                            originAccount = {entry.origin_account_number}
+                            destinationAccount = {entry.destination_account_number}
+                            amount = {`${(entry.amount.split("₡"))[1]} ${entry.type_abbreviation}` }
+                            date = {new Date(entry.transaction_date).toLocaleDateString("en-US")}
+                            description = {entry.transaction_desc}
+                            
+                        />);
                     })}
                 </List>
                 :

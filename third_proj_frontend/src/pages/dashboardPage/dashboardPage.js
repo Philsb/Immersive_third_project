@@ -8,9 +8,9 @@ const DashboardPage = () => {
             <SidebarLayout
                 profileLink = {{iconClass: "fa-user", to: "profile"}}
                 links = {[
-                    {iconClass: "fa-exchange", to: "/"},
-                    {iconClass: "fa-history", to: "/"},
-                    {iconClass: "fa-money", to: "/"}
+                    {iconClass: "fa-exchange", to: "transfer"},
+                    {iconClass: "fa-history", to: "history"},
+                    {iconClass: "fa-money", to: "addmoney"}
 
                 ]}>
                 
