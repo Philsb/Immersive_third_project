@@ -2,7 +2,7 @@
     margin: 0px;
     max-height: $header-height;
     display:flex;
-    background-color: $color-primary-2;
+    background-color: $color-primary;
     position:fixed;
     z-index:10;
     top:0;
@@ -80,11 +80,20 @@
     justify-content: flex-end;
     list-style-type: none;
     color:$font-light;
+
     &__anchor{
         color: $font-light;
         margin: 1rem;
         font-size: 1.3rem;
         font-weight: 600;
         text-decoration: none;
+        background-color: #0000;
+        border:none;
+        cursor: pointer;
+        @include back-color-transition;
+        &:hover{
+            
+            color: $font-light-secondary;
+        }
     }
 }

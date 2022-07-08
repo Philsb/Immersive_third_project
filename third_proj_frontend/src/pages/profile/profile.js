@@ -21,7 +21,7 @@ function Profile () {
             {loadedDetails != null ?
                 <div className={`${block}__profile-card`}>
                     <div className={`${block}__img-container`}>
-                        <img className={`${block}__img`} src="/pixomatic_1572877263963.png"></img>
+                        <img className={`${block}__img`} src={loadedDetails.user.photo_path}></img>
                         <h2 className={`${block}__img-title`}>
                             {loadedDetails.user.fullname}
                         </h2>

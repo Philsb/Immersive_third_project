@@ -1,18 +1,18 @@
 .footer {
-    background-color: $color-tertiary;
+    background-color: $color-4;
     min-height: 10rem;
     color: $font-light;
     margin-bottom: 0px;
 
     &__container {
-        width:100%;
+        padding-top: 10rem;
         @include centered-body-margin;
     }
 
     &__link-container {
         display: flex;
         flex-wrap: wrap;
-
+        padding-bottom: 10rem;
     }
 
     &__logo {

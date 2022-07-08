@@ -19,11 +19,12 @@ class TransactionService {
     static async makeTransaction (transactionInfo) {
         let response = null;
         const query = {
-            text : 'SELECT * FROM make_transaction($1,$2,$3,$4 );',
+            text : 'SELECT * FROM make_transaction($1,$2,$3,$4,$5 );',
             values: [transactionInfo.originAccount,
                     transactionInfo.destAccount,
                     transactionInfo.amount,
-                    transactionInfo.description]
+                    transactionInfo.description,
+                    new Date(Date.now()).toISOString()]
         }
 
         response = await DbClient.query(query);
@@ -33,11 +34,12 @@ class TransactionService {
     static async makeTransactionFromExternal (transactionInfo) {
         let response = null;
         const query = {
-            text : 'SELECT * FROM make_transaction_from_external($1,$2,$3,$4 );',
+            text : 'SELECT * FROM make_transaction_from_external($1,$2,$3,$4,$5 );',
             values: [transactionInfo.originAccount,
                     transactionInfo.destAccount,
                     transactionInfo.amount,
-                    transactionInfo.description]
+                    transactionInfo.description,
+                    new Date(Date.now()).toISOString()]
         }
 
         response = await DbClient.query(query);
@@ -47,11 +49,12 @@ class TransactionService {
     static async makeTransactionToExternal (transactionInfo) {
         let response = null;
         const query = {
-            text : 'SELECT * FROM make_transaction_to_external($1,$2,$3,$4 );',
+            text : 'SELECT * FROM make_transaction_to_external($1,$2,$3,$4,$5 );',
             values: [transactionInfo.originAccount,
                     transactionInfo.destAccount,
                     transactionInfo.amount,
-                    transactionInfo.description]
+                    transactionInfo.description,
+                    new Date(Date.now()).toISOString()]
         }
 
         response = await DbClient.query(query);
@@ -74,11 +77,12 @@ class TransactionService {
         //If service account type valid make query
         if (serviceAccountQueryResp.rows[0]) {
             const query = {
-                text : 'SELECT * FROM make_transaction_to_service($1,$2,$3,$4 );',
+                text : 'SELECT * FROM make_transaction_to_service($1,$2,$3,$4,$5);',
                 values: [transactionInfo.originAccount,
                         serviceAccountQueryResp.rows[0],
                         transactionInfo.amount,
-                        transactionInfo.description]
+                        transactionInfo.description,
+                        new Date(Date.now()).toISOString()]
             }
             response = await DbClient.query(query);
             return response.rows[0];

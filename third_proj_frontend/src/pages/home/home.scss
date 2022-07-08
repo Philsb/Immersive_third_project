@@ -1,3 +1,57 @@
-.home {
-    
+.home-page {
+    background-image: url("/low-poly-grid-haikei.svg");
+    background-size: cover;
+
+    &__main-container {
+        margin-top: 5rem;
+    }
+    &__hero {
+        display: flex;
+        align-items: center;
+
+        h1{
+            font-size: 4rem;
+        }
+
+        p {
+            color: $font-light-secondary;
+            font-size: 1.5rem;
+        }
+    }
+    &__image {
+        width: 10rem;
+    }
+    &__backdrop {
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        line-height: 0;
+        fill:$color-tertiary;
+    }
+
+    &__backdrop-2 {
+        position: absolute;
+        bottom: -510px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+        fill: $color-4;
+    }
+    &__services-container {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-bottom: 15rem;
+    }
+    &__services {
+        background-color: $color-tertiary;
+        h2{
+            padding-top: 4rem;
+            margin-top:0px;
+            font-size: 3rem;
+        }
+    }
 }

@@ -24,7 +24,6 @@ function App() {
           ]}  
           shoppingCart = {{title: "cart",to:"cart",element: <i className="fa fa-shopping-basket"/>}}
         />
-        <LoginModal/>
         
         <Outlet/>
         

@@ -9,7 +9,7 @@ const ServiceCard = (props) => {
             <div className={`${block}__title-container`}>
                 <div className={`${block}__title`} >{serviceName}</div>
                 <div className={`${block}__type`} >{serviceType}</div>
-                <div className={`${block}__pricing`} >{`${basePrice.split("₡")[1]} CRC per ${subTimePerMinute} minute/s`}</div>
+                <div className={`${block}__pricing`} >{`${basePrice.split("₡")[1]} CRC per minute`}</div>
             </div>
             <button onClick = {handleSubscription} className={`${block}__pay-container`}>
                 <div>Subscribe</div>

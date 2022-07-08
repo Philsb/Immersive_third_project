@@ -1,17 +1,28 @@
 import { useState, useEffect } from "react";
 import { v1 } from "uuid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCart, {myCartState$} from "../../hooks/useCart";
 import List from "../List/List";
 import LoginModal from "../LoginModal/LoginModal";
+import Swal from "sweetalert2";
 
 
 
 const Header = (props) => {
+    const navigate = useNavigate();
     const block = "header";
-    const {logo, shoppingCart,companyName,lettersLogoSrc,links} = props;
- 
-    const finalLinks = <></>;
+    const token = sessionStorage.getItem("Auth") || null;
+    const {logo, companyName,lettersLogoSrc} = props;
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("Auth");
+        Swal.fire({
+            position: 'center',
+            title: 'Logged Out ',
+            timer: 1500
+        });
+        navigate("/");
+    }
     return (
         <header>
             <nav className={block}>
@@ -25,10 +36,21 @@ const Header = (props) => {
                 </div>
                 <div className={`${block}__links-container`}>
                     <List  className="anchor-list-h">
-                        {finalLinks}
+
+                        {
+                            token ? 
+                            <button className="anchor-list-h__anchor" onClick={handleLogout}>Logout</button>
+                            :
+                            <>
+                                <Link className="anchor-list-h__anchor" to="Login">Login</Link>
+                                <Link className="anchor-list-h__anchor" to="Signup">Signup</Link>
+                            </>
+                            
+                            
+                            
+                        }
                         
                     </List>
-                    <LoginModal/>
                 </div>
                                             
             </nav>

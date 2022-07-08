@@ -7,9 +7,12 @@ import Loading from  "../../components/Loading/Loading";
 import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
 import TransferMoneyForm from "../../components/Form/TransferMoneyForm";
+import Swal from "sweetalert2";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 function Transfer () {
+    const navigate = useNavigate();
     const block = "transfer-page";
     const token = sessionStorage.getItem("Auth") || "";
     const selectElement = useRef(null);
@@ -60,10 +63,31 @@ function Transfer () {
         console.log(fetchConfig);
         fetch(`${process.env.REACT_APP_API_BASE_PATH }transaction/`, fetchConfig)
         .then((res) => {
-            
+            if (res.status == 200) {
+                navigate("/dashboard");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Made transaction',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }
+            if (res.status != 200) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Error in transaction',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }
+ 
             return res.json();
         }).then((res)=>{
-            console.log(res);
+            
         });
     }
     

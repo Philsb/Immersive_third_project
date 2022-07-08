@@ -4,6 +4,7 @@ const ServicesService = require('../services/services.service');
 const verifyAccountForSubscription = require('../middleware/verifyAccountForSubscription.middleware');
 const verifyBearerToken = require('../middleware/verifyBearerToken.middleware');
 const verifyToken = require('../middleware/verifyToken.middleware');
+const AccountService = require('../services/account.service');
 const router = express.Router();
 
 
@@ -11,6 +12,27 @@ router.route("/services/")
 .get( async (req,res, next) => {
     try {   
         let response = await ServicesService.getAllServices();
+        res.status(200).json(response);
+    }catch (error){
+        next(error);
+    }
+
+});
+
+router.route("/services/pay")
+.post([contentType,verifyBearerToken,verifyToken], async (req,res, next) => {
+    try {   
+
+        //let subscribedServices = await ServicesService.getSubscribedServices(decodedUser.userId);
+        let accountsOfService = await AccountService.getAccountsByUserId(req.body.payData.serviceId);
+        
+        let accountToPay = accountsOfService.find(Element => {
+            console.log(Element);
+            return Element.type_name == "colones";
+        })
+        //if (subscribedServices.find() != undefined)
+        let response = await ServicesService.payService(req.body.payData.accountNumber, accountToPay.account_number,req.body.payData.amount, req.body.payData.description);
+        
         res.status(200).json(response);
     }catch (error){
         next(error);

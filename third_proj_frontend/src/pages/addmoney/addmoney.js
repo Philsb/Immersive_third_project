@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Divider from "../../components/Divider/Divider";
 import Form from "../../components/Form/Form";
 import TransferMoneyForm from "../../components/Form/TransferMoneyForm";
@@ -8,6 +10,7 @@ import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
 
 const AddMoney = ()  => {
+    const navigate = useNavigate();
     const block = "add-money-page";
     const token = sessionStorage.getItem("Auth") || "";
     const selectElement = useRef(null);
@@ -56,7 +59,27 @@ const AddMoney = ()  => {
         console.log(fetchConfig);
         fetch(`${process.env.REACT_APP_API_BASE_PATH }transaction/fromexternal`, fetchConfig)
         .then((res) => {
-            
+            if (res.status == 200) {
+                navigate("/dashboard");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Made transaction',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }
+            if (res.status != 200) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Error in transaction',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }
             return res.json();
         }).then((res)=>{
             console.log(res);

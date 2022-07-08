@@ -1,0 +1,74 @@
+.signup-page{
+    margin-top: 7rem;
+    &__entry-container-description {
+
+    }
+    &__entry-container{
+        @include flex-col;
+        margin-top: 1rem;
+        font-family: $main-font;
+    }
+    &__entry-label{
+        color: $font-light-secondary;
+        margin-bottom: 0.3rem;
+
+    }
+
+    &__entry-input {
+        border:none;
+        border-radius: $primary-round-border;
+        padding: 0.5rem;
+        font-size: 1rem;
+        background-color: $input-color;
+        color: $font-light;
+        font-family: $main-font;
+    }
+    &__form {
+        background-color: $color-secondary-2;
+        padding: $primary-padding;
+        border-radius: $primary-round-border;
+        width: 100%;
+
+        @media (min-width:$media-tablet ){
+
+            max-width: 50%;
+            
+        }
+    }
+
+    &__form-container {
+        display:flex;
+        justify-content: center;
+        margin-top: 1rem;
+        
+    }
+
+    &__submit-container{
+        margin-top: 2rem;
+    }
+
+    &__submit-button{
+        padding: $primary-padding;
+        width: 100%;
+        border:none;
+        font-size: $size-font-m;
+        @include back-color-transition; 
+        border-radius: $primary-round-border;
+        &:hover{
+            background-color: $color-tertiary;
+            color: $font-light;
+        }
+    }
+    &__img {
+        margin-top: 1rem;
+        width: 10rem;
+        height: 10rem;
+        border-radius: $primary-round-border;
+        object-fit: cover;
+    }
+
+    &__img-container {
+        display:flex;
+        justify-content: center;
+    }
+}

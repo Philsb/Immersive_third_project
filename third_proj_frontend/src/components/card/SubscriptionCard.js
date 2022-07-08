@@ -2,7 +2,7 @@ import React from 'react'
 
 const SubscriptionCard = (props) => {
     const block = "subscription-card";
-    const {serviceName,debt} = props;
+    const {serviceName,serviceId, accountNumber,debt , handlePayService} = props;
     return (
         <div className={`${block}__container`}>
 
@@ -11,7 +11,7 @@ const SubscriptionCard = (props) => {
 
                 <div className={`${block}__debt`} >{debt.split("₡")[1]} CRC in debt</div>
             </div>
-            <button className={`${block}__pay-container`}>
+            <button onClick={()=>{handlePayService(serviceId,accountNumber)}} className={`${block}__pay-container`}>
                 <div>Pay service</div>
                 <i className={"fa fa-chevron-right"}/>
             </button>

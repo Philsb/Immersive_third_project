@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import CenteredBody from "../../components/CenteredBody/CenteredBody";
 
 function Login () {
+    const block = "login-page";
     const navigate = useNavigate();
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -29,7 +30,7 @@ function Login () {
             
             if (res.token) {
                 sessionStorage.setItem("Auth",res.token);
-                navigate("/");
+                navigate("/dashboard");
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -44,7 +45,10 @@ function Login () {
                     icon: 'error',
                     title: 'Loggin Failed',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
+                    showClass: {
+                        icon: '' 
+                    },
                 });
             }
             
@@ -54,14 +58,29 @@ function Login () {
 
     return (  
     <CenteredBody>
-        <section>
-            <h1>Login</h1>
-            <Form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input type="text" id="email" name="email" required/>
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" required/>
-            </Form>
+        <section className={`${block}`}>
+            
+            <div className={`${block}__form-container`}>
+                <form className={`${block}__form`} onSubmit = {handleSubmit}>
+                    <h1>Login</h1>
+                    <div className={`${block}__entry-container`}>
+                        <label className={`${block}__entry-label`} htmlFor="email">Email</label>
+                        <input className={`${block}__entry-input`} type="text" id="email" name="email" required/>
+                    </div>
+                    
+                    <div className={`${block}__entry-container`}>
+                        <label className={`${block}__entry-label`} htmlFor="password">Password</label>
+                        <input className={`${block}__entry-input`} type="password" id="password" name="password" required/>
+                    </div>
+                    
+                    <div className={`${block}__submit-container`}>
+                        <button className={`${block}__submit-button`} type = "submit" name = "submit" value = "Submit">
+                           Login
+                        </button>
+                    </div> 
+
+                </form>
+            </div>
         </section>
        
     </CenteredBody>  

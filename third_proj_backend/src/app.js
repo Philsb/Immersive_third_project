@@ -7,6 +7,7 @@ const transactionRoute = require ("./routes/transaction.route");
 const accountRoute = require ("./routes/account.route");
 const cors = require('cors');
 const error = require("./middleware/error.middleware");
+const ServicesService = require("./services/services.service");
 
 
 require('dotenv').config({ path: './env/.dev.env' });
@@ -23,6 +24,22 @@ app.get("/", (req,res)=>{
     res.send("Hello world!");
 });
 
+setInterval(async   ()=>{
+    try {
+        const allServices = await ServicesService.getAllSubscriptions();
+        allServices.forEach(async element => {
+
+            const lastPayed = new Date(element.last_payed)
+            var minutes = (Date.now() - lastPayed.getTime()) / 60000;
+
+            await ServicesService.addDebt(element.account_number_fk, element.service_id_fk, minutes* parseFloat(element.base_price.split("₡")[1].replace(/\s/g,"")));
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+
+}, 60000);
 //-----------------------------------------------
 app.use("/", userRoute);
 app.use("/", signupRoute);

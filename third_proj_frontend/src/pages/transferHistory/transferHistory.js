@@ -18,7 +18,7 @@ const AccountHistory = () => {
         <section>   
             <h1>Transfer history</h1>
             <Divider/>
-            <SearchBar/>
+            {/*<SearchBar/>*/}
             {loadedHistory != null ?
                 <List>
 

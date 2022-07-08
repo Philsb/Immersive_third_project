@@ -27,9 +27,15 @@ router.route("/transaction/")
         let originAccount = await accountService.getAccountByAccountNumber(Number(trans.originAccount.slice(trans.originAccount.length - 10)));
         let destinationAccount = await accountService.getAccountByAccountNumber(Number(trans.destAccount.slice(trans.destAccount.length - 10)));
 
+        if (trans.amount <= 0.0) {
+            res.status(400).json({message: "Bad amount.", error_type:"amount"});
+        }
+        if (originAccount.balance < trans.amount) {
+            res.status(400).json({message: "Balance too low.", error_type:"balance"});
+        }
         //Check accounts dont match
         if (originAccount.account_type != destinationAccount.account_type){
-            res.status(400).json({message: "Accounts types dont match."});
+            res.status(400).json({message: "Accounts types dont match.", error_type:"match"});
         }
         
 
@@ -78,7 +84,7 @@ router.route("/transaction/service")
 .post([contentType,verifyBearerToken,verifyToken, verifyAccountForTransaction], async (req,res, next) => {
     try {
         let trans = req.body.transaction;
-        let response = await transactionService.makeTransactionToService();
+        let response = await transactionService.makeTransactionToService(trans);
         if (response != -1) {
             res.status(200).json({message: "made transaction"});
         }

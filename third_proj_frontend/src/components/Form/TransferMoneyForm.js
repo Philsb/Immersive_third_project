@@ -59,7 +59,7 @@ const TransferMoneyForm = (props) => {
             
             <div className={`${block}__entry-container`}>
                 <label className={`${block}__entry-label`} htmlFor="description">Description</label>
-                <input className={`${block}__entry-input`} ref={amountInput} type="text" id="description" name="description" required/>
+                <input className={`${block}__entry-input`} type="text" id="description" name="description" required/>
             </div>
             
             <div className={`${block}__submit-container`}>

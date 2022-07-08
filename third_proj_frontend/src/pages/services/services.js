@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import ServiceCard from "../../components/card/ServiceCard";
 import SubscriptionCard from "../../components/card/SubscriptionCard";
 import FlexContainer from "../../components/Container/FlexContainer";
@@ -9,14 +11,17 @@ import generateIBAN from "../../helpers/generateIban";
 import useFetch from "../../hooks/useFetch";
 
 const Services = ()=> {
-    
+    const navigate = useNavigate();
     const token = sessionStorage.getItem("Auth") || "";
     const [loadedServices,setLoadedServices] = useFetch (`${process.env.REACT_APP_API_BASE_PATH}services/`,"GET");
     const [subscribedServices, setSubscribedServices] = useFetch (`${process.env.REACT_APP_API_BASE_PATH}services/subscription/`,"GET",{"Authorization": "Bearer "+token});
     const [userAccounts,setUserAccounts] = useFetch (`${process.env.REACT_APP_API_BASE_PATH}account/`,"GET",{"Authorization": "Bearer "+token})
-
+    
+    const getFirstColonesAccount = () =>{
+        return userAccounts.find(account => account.type_name == "colones");
+    }
     const handleSubscribe= (serviceId)=> {
-        
+        console.log(userAccounts);
         const headers = {
             'Content-Type': 'application/json',
             "Authorization": "Bearer "+ token
@@ -27,7 +32,7 @@ const Services = ()=> {
             headers: headers,
             body: JSON.stringify({
                 "subscriptionData": {
-                    "accountNumber": userAccounts[0].account_number,
+                    "accountNumber": getFirstColonesAccount().account_number,
                     "serviceId": serviceId,
                     "recurrentPayment": false
                 }
@@ -78,7 +83,56 @@ const Services = ()=> {
             }
         });
     }
+    
+    const handlePayService = (serviceId, accountNumber,debt, serviceName)=>{
+        const headers = {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer "+ token
+        };
 
+        const fetchConfig = {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                "payData": {
+                    "accountNumber": accountNumber,
+                    "serviceId": serviceId,
+                    "amount": debt,
+                    "description": "Payed Service: " + serviceName
+                }
+            })
+        } 
+        
+        fetch (`${process.env.REACT_APP_API_BASE_PATH}services/pay`, fetchConfig)
+        .then(res=>{
+
+            if (res.status == 200) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Payed service.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate ("");
+
+            }
+            if (res.status != 200) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Not enough money in main account.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+            }
+
+            return res.json();
+        }).then (res=>{
+            console.log(res)
+        });
+    }
     return (
     
     <section>
@@ -121,6 +175,7 @@ const Services = ()=> {
                     <SubscriptionCard
                         serviceName = {subscription.provider_name}
                         debt = {subscription.debt_amount}
+                        handlePayService = {()=>{handlePayService(subscription.user_id, subscription.account_number_fk, subscription.debt_amount, subscription.provider_name)}}
                     />
                     );
                     /*return (
