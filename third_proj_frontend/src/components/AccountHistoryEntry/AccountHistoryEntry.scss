@@ -5,8 +5,13 @@
     display:flex;
     align-items: center;
     margin-top: 1rem;
-    &__cell {
+    &__cell-hide {
+        display:none;
+        @media (min-width:$media-tablet ){
+
+            display:block;
         
+        }
     }
     &__icon {
         background-color: $color-success;

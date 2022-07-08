@@ -32,6 +32,12 @@
     }
     &__logo-letters {
         object-fit: contain;
+        display:none;
+        @media (min-width:$media-tablet ){
+
+            display:block;
+        
+        }
     }
 
     &__company-name {

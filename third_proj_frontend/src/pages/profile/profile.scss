@@ -5,8 +5,8 @@
         border-radius: $primary-round-border;
     }
     &__img {
-        width: 15rem;
-        height: 15rem;
+        width: 10rem;
+        height: 10rem;
         object-fit: cover;
         border-radius: 100%;
     }
@@ -18,5 +18,26 @@
     }
     &__img-title {
         font-size: 2rem;
+    }
+
+    &__details-container{
+        display: flex;
+        justify-content: center;
+    }
+    &__details{
+        display:flex;
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    &__details-entry{
+        h3{
+            color:$font-light-secondary;
+            margin-right: 2rem;
+        }
+        p{
+            font-size: 1.4rem;
+            margin-right: auto;
+        }
     }
 }

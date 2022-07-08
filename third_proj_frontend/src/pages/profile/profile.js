@@ -25,9 +25,29 @@ function Profile () {
                         <h2 className={`${block}__img-title`}>
                             {loadedDetails.user.fullname}
                         </h2>
+                        
                     </div>
-                    <div>
-                        {loadedDetails.user.email}
+                    <div >
+                        <div  className={`${block}__details-container`}>
+                            <div className={`${block}__details`}>
+                                <div className={`${block}__details-entry`} >
+                                    <h3>Email</h3>
+                                    <p>{loadedDetails.user.email}</p>
+                                </div>
+
+                                <div className={`${block}__details-entry`} >
+                                    <h3>Id</h3>
+                                    <p>{loadedDetails.user.user_id}</p>
+                                </div>
+
+                                <div className={`${block}__details-entry`} >
+                                    <h3>Source of Income</h3>
+                                    <p>{loadedDetails.user.source_income}</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
                     </div>
                         
                     

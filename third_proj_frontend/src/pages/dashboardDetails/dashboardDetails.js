@@ -14,27 +14,35 @@ const DashboardDetails = () => {
                                                     {
                                                         Authorization: "Bearer "+ token
                                                     });
-    
+    const [loadedDetails, setLoadedDetails] = useFetch(`${process.env.REACT_APP_API_BASE_PATH}user/` 
+                                                    ,"GET",
+                                                    {
+                                                        Authorization: "Bearer "+ token
+                                                    });
 
 
     return( 
     
     <section>
-        <h1>Accounts</h1>
-        <Divider/>  
+          
         {
-            loadedAccounts ? 
-            <FlexContainer>
-                {loadedAccounts.map(account => {
-                    return (
-                        <AccountCard
-                            accountNumber = {generateIBAN(account.account_number)}
-                            balance = {`${account.balance.split("₡")[1]} ${account.type_abbreviation}`}
-                            currencyType = {account.type_name}
-                        />
-                    );
-                })}
-            </FlexContainer>
+            loadedAccounts && loadedDetails? 
+            <>
+                <h1>Hello, {loadedDetails.user.fullname}</h1>
+                <Divider/>
+                <FlexContainer>
+                    {loadedAccounts.map(account => {
+                        return (
+                            <AccountCard
+                                accountNumber = {generateIBAN(account.account_number)}
+                                balance = {`${account.balance.split("₡")[1]} ${account.type_abbreviation}`}
+                                currencyType = {account.type_name}
+                            />
+                        );
+                    })}
+                </FlexContainer>
+            </>
+            
             
             : 
             <Loading/>

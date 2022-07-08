@@ -11,12 +11,12 @@ const AccountHistoryEntry = (props) => {
             </div>
             <div className={`${block}__main-container`}>
                 <div className={`${block}__details`}>
-                    <div className={`${block}__cell`}>
+                    <div className={`${block}__cell-hide`}>
                         <div className={`${block}__cell-title`}>{originAccount}</div>
                         <div className={`${block}__cell-content`}>Origin</div>
                     </div>
 
-                    <div className={`${block}__cell`}>
+                    <div className={`${block}__cell-hide`}>
                         <div className={`${block}__cell-title`}>{destinationAccount}</div>
                         <div className={`${block}__cell-content`}>Destination</div>
                     </div>
@@ -26,7 +26,7 @@ const AccountHistoryEntry = (props) => {
                         <div className={`${block}__cell-content`}>Amount</div>
                     </div>
 
-                    <div className={`${block}__cell`}>
+                    <div className={`${block}__cell-hide`}>
                         <div className={`${block}__cell-title`}>{date}</div>
                         <div className={`${block}__cell-content`}>Date</div>
                     </div>
